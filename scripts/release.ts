@@ -3,22 +3,23 @@ import { run } from 'shell-commands';
 
 const build = async () => {
   await run(`
-    rm -rf .parcel-cache
-    rm -rf build
-    parcel build --no-source-maps
-  `);
+      rm -rf .parcel-cache
+      rm -rf build
+      parcel build --no-source-maps
+    `);
 };
 
 const main = async () => {
   await build();
   await run(`
-    rm -rf dist
-  `);
+      rm -rf dist
+    `);
   const inputs = new Set(process.argv);
+  const files = ['build'];
   if (inputs.has('--dir')) {
     await electronBuild({
       config: {
-        files: ['build'],
+        files,
         mac: {
           identity: null,
           target: ['dir'],
@@ -28,7 +29,7 @@ const main = async () => {
   } else if (inputs.has('--github')) {
     await electronBuild({
       config: {
-        files: ['build'],
+        files,
         mac: {
           notarize: {
             teamId: process.env.APPLE_TEAM_ID,
