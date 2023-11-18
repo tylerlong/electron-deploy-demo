@@ -10,9 +10,8 @@
   },
   "main": "build/electron.js",
   "scripts": {
-    "build": "rm -rf .parcel-cache && rm -rf build && parcel build --no-source-maps",
     "lint": "eslint --fix '**/*.{ts,tsx,js,jsx}' && prettier --write . && sort-package-json",
-    "mac": "yarn build && rm -rf dist && yarn electron-builder --dir -c.mac.identity=null",
+    "release": "ts-node -r dotenv-override-true/config scripts/release.ts",
     "start": "nodemon --watch build/electron.js --exec 'electron .'",
     "watch": "ts-node scripts/watch.ts"
   },
@@ -22,6 +21,7 @@
     "@typescript-eslint/eslint-plugin": "^6.11.0",
     "@typescript-eslint/parser": "^6.11.0",
     "antd": "^5.11.2",
+    "dotenv-override-true": "^6.2.2",
     "electron": "^27.1.0",
     "electron-builder": "^24.6.4",
     "eslint": "^8.54.0",
